@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, Text, Image, StyleSheet, TouchableOpacity, Dimensions, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 
 import pillsImg from '../assets/pills.png';
 import colors from '../styles/colors';

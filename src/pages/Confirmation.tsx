@@ -1,38 +1,37 @@
 import React from "react";
-import { useNavigation, useRoute } from "@react-navigation/core";
-import { SafeAreaView, StyleSheet, View, Text, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+import { SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 import { Button } from "../components/Button";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
-
-interface Params {
+interface ParamsConfirmation {
     title: string;
     subtitle: string;
     buttonTitle: string;
-    icon: ':)' | ';)',
+    icon: 'smile' | 'hug',
     nextScreen: string;
 }
 
 const emojis = {
-    smile: ':)',
-    wink: ';D'
+    hug: '🤗',
+    smile: '😁'
 }
 
 export function Confirmation() {
-
     const navigation = useNavigation();
     const routes = useRoute();
-
     const {
         title,
         subtitle,
         buttonTitle,
         icon,
         nextScreen
-    } = routes.params as Params;
+    } = routes.params as ParamsConfirmation;
     
     function handleMoveOn(){
         navigation.navigate(nextScreen);
@@ -42,23 +41,23 @@ export function Confirmation() {
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <Text style={styles.emoji}>
-                    :)
-                    {/* {emojis[icon]} */}
+                {emojis[icon]}
                 </Text>
-
                 <Text style={styles.title}>
                     {title}
                 </Text>
-
                 <Text style={styles.subtitle}>
                     {subtitle}
                 </Text>
                 <View style={styles.footer}>
-                <Button title={buttonTitle} onPress={handleMoveOn}/>
-            </View>
+                    <Button 
+                        title={buttonTitle} 
+                        onPress={handleMoveOn}
+                    />
+                </View>
             </View>
         </SafeAreaView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -103,4 +102,4 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
         marginTop: 20
     }
-})
+});

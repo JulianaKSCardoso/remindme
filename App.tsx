@@ -7,7 +7,7 @@ import Routes from "./src/routes";
 import { useFonts, Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto';
 import { MedicamentProps } from "./src/libs/storage";
 import { Welcome } from "./src/pages/Welcome";
-import { UserIdentification } from "./src/pages/UserIdentification";
+
 
 
 export default function App(){
@@ -31,7 +31,7 @@ if (!fontLoaded)
   return <AppLoading/>
 
   return(
-    <UserIdentification />
+    <Welcome />
   )
 }
 

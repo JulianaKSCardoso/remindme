@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from '@react-navigation/native';
 
 import { MedicamentTypeButton } from '../components/MedicamentTypeButton';
 import { MedicamentCardPrimary } from '../components/MedicamentCardPrimary';

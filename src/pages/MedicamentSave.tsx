@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, View, Image, Platform, TouchableOpacity, ScrollView } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
-import { useNavigation, useRoute } from '@react-navigation/core'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { format,isBefore } from 'date-fns';
 import { MedicamentProps, saveMedicament } from '../libs/storage';

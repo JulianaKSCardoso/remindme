@@ -1551,9 +1551,9 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-native/polyfills/-/polyfills-1.0.0.tgz#05bb0031533598f9458cf65a502b8df0eecae780"
     integrity sha512-0jbp4RxjYopTsIdLl+/Fy2TiwVYHy4mgeu07DG4b/LyM0OS/+lPP5c9sbnt/AMlnF6qz2JRZpPpGw1eMNS6A4w==
   
-  "@react-navigation/core@^6.1.0":
+  "@react-navigation/native@^6.1.0":
     version "6.1.0"
-    resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-6.1.0.tgz#95fbf54d78ad0ed976cb73219f0c0199775a1d26"
+    resolved "https://registry.yarnpkg.com/@react-navigation/native/-/core-6.1.0.tgz#95fbf54d78ad0ed976cb73219f0c0199775a1d26"
     integrity sha512-LyZqD/ZCXSK9+ES8KiH+0tU+7aL84jUw1N9OxZfEuns/OcnSXKC3sOO+9NQ9XRowB1wLUfJhmqZ8G8rUlg33fQ==
     dependencies:
       "@react-navigation/routers" "^6.1.0"
@@ -1572,7 +1572,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-6.0.6.tgz#0f2577358d73d7b21ff5b2455f0a2d51b1ad2837"
     integrity sha512-XzL7YPsaRRQgdCQSXbA8PJWLN2I4lhUUvSFoKQPNO4DS6y8eqZI1V8COPYlJg8+tsetGV5J8jt+jVjWL7h6ZrQ==
     dependencies:
-      "@react-navigation/core" "^6.1.0"
+      "@react-navigation/native" "^6.1.0"
       escape-string-regexp "^4.0.0"
       nanoid "^3.1.23"
   
