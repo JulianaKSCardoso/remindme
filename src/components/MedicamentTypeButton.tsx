@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Text, StyleSheet } from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
@@ -10,18 +11,18 @@ interface MedicamentTypeButtonProps extends RectButtonProps {
     active?: boolean;
 }
 
-export function MedicamentTypeButton ({
+export function MedicamentTypeButton({
     title,
     active = false,
-    ... rest
+    ...rest
 } : MedicamentTypeButtonProps) {
     return(
         <RectButton
-                style={[
-                    styles.container,
-                    active && styles.containerActive
-                ]}
-                {... rest}
+            style={[
+                styles.container,
+                active && styles.containerActive
+            ]}
+                {...rest}
         >
             <Text style={[
                 styles.text,

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { StyleSheet, View } from 'react-native';
+
 import LottieView from 'lottie-react-native';
 
 import loadAnimation from '../assets/load.json';
@@ -14,7 +16,7 @@ export function Load(){
                 style={styles.animation}
             />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -29,4 +31,4 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200
     }
-})
+});

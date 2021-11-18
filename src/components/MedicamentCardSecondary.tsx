@@ -1,7 +1,8 @@
-import { Feather } from "@expo/vector-icons";
 import React from "react";
+
 import { StyleSheet, Text, View, Animated } from "react-native";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
+import { Feather } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { SvgFromUri } from 'react-native-svg';
 
@@ -17,7 +18,7 @@ interface MedicamentProps extends RectButtonProps {
     handleRemove: () => void;
 }
 
-export const MedicamentCardSecondary = ({ data, handleRemove, ... rest} : MedicamentProps) => {
+export function MedicamentCardSecondary({ data, handleRemove, ...rest} : MedicamentProps){
     return(
         <Swipeable
             overshootRight={false}
@@ -36,7 +37,7 @@ export const MedicamentCardSecondary = ({ data, handleRemove, ... rest} : Medica
         >
             <RectButton
                 style={styles.container}
-                {... rest}
+                {...rest}
             >
                 <SvgFromUri
                     uri={data.photo}
@@ -56,7 +57,7 @@ export const MedicamentCardSecondary = ({ data, handleRemove, ... rest} : Medica
                 </View>
             </RectButton>
         </Swipeable>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -106,6 +107,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         right:20,
         paddingLeft: 15
-    }
-    
-})
+    }   
+});

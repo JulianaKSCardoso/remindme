@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image} from "react-native";
+
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image
+} from "react-native";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import fonts from "../styles/fonts";
@@ -12,7 +19,7 @@ export function Header() {
 
     useEffect(() => {
         async function loadStorageUserName() {
-            const user = await AsyncStorage.getItem('@remind-me:user');
+            const user = await AsyncStorage.getItem('@remindme:user');
             setUserName(user || '');
         }
 
@@ -23,7 +30,7 @@ export function Header() {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.greeting}>Olá, </Text>
+                <Text style={styles.greeting}> Olá,  </Text>
                 <Text style={styles.userName}>{userName}</Text>
             </View>
             <Image source={userImg} style={styles.image}></Image>

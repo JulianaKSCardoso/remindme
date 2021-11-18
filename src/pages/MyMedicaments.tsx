@@ -43,7 +43,7 @@ export function MyMedicaments() {
 
     useEffect(() => {
         async function loadStorageData() {
-            const medicamentsStoraged = await loadMedicament();
+            const medicamentsStoraged = await loadMedicaments();
 
             const nextTime = formatDistance(
                 new Date(medicamentsStoraged[0].dateTimeNotification).getTime(),
