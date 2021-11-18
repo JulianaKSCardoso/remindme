@@ -18,8 +18,8 @@ const AppRoutes: React.FC = () => {
 
     return(
         <stackRoutes.Navigator
-            headerMode="none"
             screenOptions={{
+                headerShown: false,
                 cardStyle: {
                     backgroundColor: colors.white
                 },
