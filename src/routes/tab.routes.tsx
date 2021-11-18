@@ -15,11 +15,11 @@ const AppTab = createBottomTabNavigator();
 const AuthRoutes = () => {
     return(
         <AppTab.Navigator
-            tabBarOptions={{
-                activeTintColor: colors.green,
-                inactiveTintColor: colors.heading,
-                labelPosition: 'beside-icon',
-                style: {
+            screenOptions={{
+                tabBarActiveTintColor: colors.green,
+                tabBarInactiveTintColor: colors.heading,
+                tabBarLabelPosition: 'beside-icon',
+                tabBarStyle: {
                     borderTopWidth: 0,
                     borderTopStartRadius: 60,
                     borderTopEndRadius: 60,
