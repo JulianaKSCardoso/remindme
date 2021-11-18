@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
+
 import { View, StyleSheet, Image, Text, FlatList, Alert } from 'react-native';
+
+import { MedicamentProps, loadMedicaments, removeMedicament } from "../libs/storage";
+import { formatDistance } from "date-fns";
+import { pt } from "date-fns/locale";
+
+import caps from '../assets/caps.png'
 
 import { Header } from "../components/Header";
 import { MedicamentCardSecondary } from "../components/MedicamentCardSecondary";
 import { Load } from "../components/Load";
 
 import colors from "../styles/colors";
-import caps from '../assets/caps.png'
-import { MedicamentProps, loadMedicament, removeMedicament } from "../libs/storage";
-import { formatDistance } from "date-fns";
-import { pt } from "date-fns/locale";
 import fonts from "../styles/fonts";
 
 
@@ -29,38 +32,64 @@ export function MyMedicaments() {
                 onPress: async () => {
                     try {
                         await removeMedicament(medicament.id);
-                        setMyMedicaments((oldData) => 
-                            oldData.filter((item) => item.id !== medicament.id)
+                        setMyMedicaments((oldMedicaments) => 
+                            oldMedicaments.filter((item) => item.id !== medicament.id)
                          );
+
+                         if (myMedicaments[0].id === medicament.id && myMedicaments[1]) {
+                            const nextTime = formatDistance(
+                              new Date(myMedicaments[1].dateTimeNotification).getTime(),
+                              new Date().getTime(),
+                              { locale: pt }
+                            );
+              
+                            setNextMedicament(
+                              `${myMedicaments[1].name} daqui a ${nextTime}`
+                            );
+                            return;
+                          }
+              
+                          if (myMedicaments[0].id === medicament.id && !myMedicaments[1]) {
+                            setNextMedicament(`Você ainda não tem medicamentos agendados. 😥`);
+                            setMyMedicaments([]);
+                            return;
+                          }
                     } catch (error) {
                         Alert.alert('Não foi possível remover!');
                     }
-                }
-            }
+                },
+            },
 
-        ])
+        ]);
     }
 
     useEffect(() => {
         async function loadStorageData() {
-            const medicamentsStoraged = await loadMedicaments();
+            const medicamentsStorage = await loadMedicaments();
+
+            if (!medicamentsStorage[0]) {
+                setMyMedicaments([]);
+                setNextMedicament(`Você ainda não tem plantas. 😥`);
+                setLoading(false);
+                return;
+            }
 
             const nextTime = formatDistance(
-                new Date(medicamentsStoraged[0].dateTimeNotification).getTime(),
+                new Date(medicamentsStorage[0].dateTimeNotification).getTime(),
                 new Date().getTime(),
                 { locale: pt}
             );
 
             setNextMedicament(
-                `Não esqueça de regar a ${medicamentsStoraged[0].name} à ${nextTime} horas.`
+                `Não esqueça de ingerir ${medicamentsStorage[0].name} em ${nextTime} horas.`
             );
 
-            setMyMedicaments(medicamentsStoraged);
+            setMyMedicaments(medicamentsStorage);
             setLoading(false);
         }
 
         loadStorageData();
-    },[])
+    },[]);
 
     if(loading){
         return <Load />
@@ -97,10 +126,9 @@ export function MyMedicaments() {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flex: 1 }}
                 />
-
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

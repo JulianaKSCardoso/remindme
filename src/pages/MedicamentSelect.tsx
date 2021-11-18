@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList
+} from 'react-native';
+
+import { useNavigation } from '@react-navigation/core';
+
+import { MedicamentProps } from '../libs/storage';
+import api from '../services/api';
+
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
 import { MedicamentTypeButton } from '../components/MedicamentTypeButton';
 import { MedicamentCardPrimary } from '../components/MedicamentCardPrimary';
 import { Header } from '../components/Header';
 import { Load } from '../components/Load'; 
-import { MedicamentProps } from '../libs/storage';
 
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
-import api from '../services/api';
 
 
 export interface MedicamentTypeProps {
@@ -19,6 +27,8 @@ export interface MedicamentTypeProps {
 }
 
 export function MedicamentSelect() {
+    const navigation = useNavigation();
+
     const [medicamentsType, setMedicamentTypes] = useState<MedicamentTypeProps[]>([]);
     const [medicaments, setMedicaments] = useState<MedicamentProps[]>([]);
     const [filteredMedicaments, setFilteredMedicaments] = useState<MedicamentProps[]>([]);
@@ -28,13 +38,12 @@ export function MedicamentSelect() {
     const [ page, setPage ] = useState(1);
     const [ loadingMore, setLoadingMore ] = useState(false);
 
-    const navigation = useNavigation();
-
     function handleMedicamentTypeSelected(medicamentType: string){
         setMedicamentTypeSelected(medicamentType);
 
-        if(medicamentType == 'all')
+        if(medicamentType === 'all'){
             return setFilteredMedicaments(medicaments);
+        }
 
         const filtered = medicaments.filter(medicament => 
             medicament.medicamentsType.includes(medicamentType)    
@@ -43,31 +52,35 @@ export function MedicamentSelect() {
         setFilteredMedicaments(filtered);
     }
 
-    async function fetchMedicaments(){
-        const { data } = await api.get(`medicaments?_sort=name&_order=acs&_page=${page}&_limit=8`);
+    async function fetchMedicaments() {
+        const { data } = await api.get<MedicamentProps[]>(`medicaments?_sort=name&_order=acs&_page=${page}&_limit=8`);
 
-        if(!data)
-            return setLoading(true);
-        
+        if(!data) {
+            setLoading(true);
+        }
+
+        if (data.length === 0) {
+            setPage((oldValue) => oldValue - 1);
+          }
+
         if(page > 1){
-            setMedicaments(oldValue => [ ... oldValue, ... data])
-            setFilteredMedicaments(oldValue => [ ... oldValue, ... data])
+            setMedicaments((oldValue) => [ ...oldValue, ...data]);
+            setFilteredMedicaments((oldValue) => [ ...oldValue, ...data]);
         } else {
             setMedicaments(data);
             setFilteredMedicaments(data);
         }
+
         setLoading(false);
         setLoadingMore(false);
     }
-
-
 
     function handleFetchMore(distance: number) {
         if(distance < 1)
             return;
         
         setLoadingMore(true);
-        setPage(oldValue => oldValue + 1);
+        setPage((oldValue) => oldValue + 1);
         fetchMedicaments();
     }
 
@@ -76,29 +89,21 @@ export function MedicamentSelect() {
     }
 
     useEffect(() => {
-    },[])
-
-
-    useEffect(() => {
         async function fetchMedicamentType(){
-            const { data } = await api
-            .get('medicaments_medicamentTypes?_sort=title&_order=asc');
+            const { data } = await api.get('medicaments_type?_sort=title&_order=asc');
             setMedicamentTypes([
                 {
                     key: 'all',
                     title: 'Todos',
                 },
-                ... data
+                ...data
             ]);
         }
 
         fetchMedicamentType();
-
-    },[])
+    },[]);
 
     useEffect(() => {
-
-
         fetchMedicaments();
 
     },[])
@@ -111,17 +116,18 @@ export function MedicamentSelect() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Header />
+
                 <Text style={styles.title}>
-                    Selecione o tipo de seu medicamento
+                    Selecione o tipo 
                 </Text>
                 <Text style={styles.subtitle}>
-                     ou realize uma pesquisa
+                    de seu medicamento
                 </Text>
             </View>
 
             <View>
                 <FlatList
-                    data={[medicamentsType]}
+                    data={medicamentsType}
                     keyExtractor={(item) => String(item.key)}
                     renderItem={({ item }) => (
                         <MedicamentTypeButton

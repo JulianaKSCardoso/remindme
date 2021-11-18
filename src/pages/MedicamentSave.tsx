@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View, Image, Platform, TouchableOpacity, ScrollView } from 'react-native';
+
+import {
+    Alert,
+    StyleSheet,
+    Text, View,
+    Image, 
+    Platform,
+    TouchableOpacity,
+    ScrollView }
+    from 'react-native';
+
 import { SvgFromUri } from 'react-native-svg';
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/core'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { format,isBefore } from 'date-fns';
+
 import { MedicamentProps, saveMedicament } from '../libs/storage';
 
-import { Button } from '../components/Button';
-
-import caps from '../assets/caps.png'
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
+import caps from '../assets/caps.png'
+
+import { Button } from '../components/Button';
 
 
-interface Params {
+interface ParamsMedicamentSave {
     medicament: MedicamentProps
 }
 
 export function MedicamentSave() {
+    const route = useRoute();
+    const navigation = useNavigation();
+    const { medicament } = route.params as ParamsMedicamentSave;
+
     const [selectedDateTime, setSelectedDateTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(Platform.OS == 'ios');
-
-    const route = useRoute();
-    const { medicament } = route.params as Params;
-
-    const navigation = useNavigation();
 
     function handleChangeTime(event: Event, dateTime: Date | undefined) {  
         if(Platform.OS == 'android'){
@@ -36,8 +46,9 @@ export function MedicamentSave() {
             return Alert.alert('Escolha uma hora no futuro!');
         }
 
-        if(dateTime)
+        if(dateTime) {
             setSelectedDateTime(dateTime);
+        }
     }
 
 
@@ -47,21 +58,27 @@ export function MedicamentSave() {
 
 
     async function handleSave(){
+
+        if (selectedDateTime && isBefore(selectedDateTime, new Date())) {
+            setSelectedDateTime(new Date());
+            return Alert.alert("Escolha uma hora no futuro! ⏰");
+        }
         try{
             await saveMedicament({
-                ... medicament,
-                dateTimeNotification: selectedDateTime
+                ...medicament,
+                dateTimeNotification: selectedDateTime,
             });
 
-            navigation.navigate('Confirmation', {
-                title: 'Tudo certo!',
-                subtitle: 'Agora é só relaxar que iremos te lembrar de ingerir seus medicamentos nos horários corretos!',
-                buttonTitle: 'Muito Obrigado',
-                icon: 'smile',
-                nextScreen: 'MyMedicaments',
-            });
+            navigation.navigate("MyMedicaments");
+            // {
+            //     title: 'Tudo certo!',
+            //     subtitle: 'Agora é só relaxar que iremos te lembrar de ingerir seus medicamentos nos horários corretos!',
+            //     buttonTitle: 'Muito Obrigado',
+            //     icon: 'smile',
+            //     nextScreen: 'MyMedicaments',
+            // });
         } catch{
-            Alert.alert('Não foi possível salvar :(')
+            Alert.alert('Não foi possível salvar 😥')
         }
     }
     
@@ -72,20 +89,19 @@ export function MedicamentSave() {
             contentContainerStyle={styles.container}
         >
             <View style={styles.container}>
-            <View style={styles.medicamentInfo}>
+                <View style={styles.medicamentInfo}>
                 <SvgFromUri
-                    uri=""
+                    uri={medicament.photo}
                     height={150}
                     width={150}
                 />
 
                 <Text style={styles.medicamentName}>
-                    Dipirona Sódica
-                    {/* {medicament.name} */}
+                    {medicament.name}
                 </Text>
                 <Text style={styles.medicamentAbout}>
                     Analgésico
-                    {/* {medicament.about} */}
+                    {medicament.about}
                 </Text>
             </View>
 
@@ -97,8 +113,7 @@ export function MedicamentSave() {
                         />
 
                         <Text style={styles.tipText}>
-                            Lembre-se de ingerir seus medicamentos de acordo com a orientação de seu médico!
-                            {/* {medicament.about} */}
+                            {medicament.about}
                         </Text>
                     </View>
                     <Text style={styles.alertLabel}>
@@ -117,8 +132,8 @@ export function MedicamentSave() {
                     {
                         Platform.OS == 'android' && (
                             <TouchableOpacity
-                                style={styles.dateTimePickerButton}
                                 onPress={handleOpenDateTimePickerForAndroid}
+                                style={styles.dateTimePickerButton}
                             >
                                     <Text style={styles.dateTimePickerText}>
                                         {`Mudar ${format(selectedDateTime, `HH:mm`)}`}
@@ -135,7 +150,7 @@ export function MedicamentSave() {
                 </View>
             </View>
         </ScrollView>
-    )
+    );
 }
 const styles = StyleSheet.create({
 
@@ -220,5 +235,4 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontFamily: fonts.text
     }
-
-})
+});

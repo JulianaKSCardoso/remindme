@@ -1,9 +1,13 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Platform } from 'react-native';
+
 
 import colors from '../styles/colors';
-import { MedicamentSelect } from '../pages/MedicamentSelect';
+
 import { MaterialIcons } from '@expo/vector-icons';
+
+import { MedicamentSelect } from '../pages/MedicamentSelect';
 import { MyMedicaments } from '../pages/MyMedicaments';
 
 const AppTab = createBottomTabNavigator();
@@ -16,21 +20,25 @@ const AuthRoutes = () => {
                 inactiveTintColor: colors.heading,
                 labelPosition: 'beside-icon',
                 style: {
-                    paddingVertical: 20,
-                    height: 88
+                    borderTopWidth: 0,
+                    borderTopStartRadius: 60,
+                    borderTopEndRadius: 60,
+                    height: 88,
+                    paddingVertical: Platform.OS === "ios" ? 20 : 0,
                 },
-            }}>
+            }}
+        >
                 <AppTab.Screen
                     name="Novo Medicamento"
                     component={MedicamentSelect}
                     options={{
-                        tabBarIcon: (({size, color}) => (
+                        tabBarIcon: ({size, color}) => (
                             <MaterialIcons
                                 name="add-circle-outline"
                                 size={size}
                                 color={color}
                             />
-                        ))
+                        ),
                     }}
                 />
 
@@ -38,19 +46,17 @@ const AuthRoutes = () => {
                     name="Meus Medicamentos"
                     component={MyMedicaments}
                     options={{
-                        tabBarIcon: (({size, color}) => (
+                        tabBarIcon: ({size, color}) => (
                             <MaterialIcons
                                 name="format-list-bulleted"
                                 size={size}
                                 color={color}
                             />
-                        ))
+                        ),
                     }}
                 />
-
-                
             </AppTab.Navigator>
-    )
+    );
 }
 
 export default AuthRoutes;
