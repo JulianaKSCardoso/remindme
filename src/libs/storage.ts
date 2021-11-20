@@ -8,7 +8,7 @@ export interface MedicamentProps {
         about: string;
         tips: string;
         photo: string;
-        medicamentsType: string[];
+        medicament_type: string[];
         frequency: {
           times: number;
           repeat_every: string;

@@ -1,10 +1,9 @@
 import React from "react";
 
-import { StyleSheet, Text, View, Animated } from "react-native";
+import { StyleSheet, Text, View, Animated, Image } from "react-native";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { SvgFromUri } from 'react-native-svg';
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
@@ -39,11 +38,7 @@ export function MedicamentCardSecondary({ data, handleRemove, ...rest} : Medicam
                 style={styles.container}
                 {...rest}
             >
-                <SvgFromUri
-                    uri={data.photo}
-                    width={50}
-                    height={50}
-                />
+                <Image source={{uri: data.photo}} width={50} height={50} />
                 <Text style={styles.title}>
                     {data.name}
                 </Text>

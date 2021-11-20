@@ -46,14 +46,15 @@ export function MedicamentSelect() {
         }
 
         const filtered = medicaments.filter(medicament => 
-            medicament.medicamentsType.includes(medicamentType)    
+            medicament.medicament_type.includes(medicamentType)    
         );
 
         setFilteredMedicaments(filtered);
     }
 
     async function fetchMedicaments() {
-        const { data } = await api.get<MedicamentProps[]>(`medicaments?_sort=name&_order=acs&_page=${page}&_limit=8`);
+        
+        let { data } = await api.get(`medicaments`);
 
         if(!data) {
             setLoading(true);
@@ -90,7 +91,7 @@ export function MedicamentSelect() {
 
     useEffect(() => {
         async function fetchMedicamentType(){
-            const { data } = await api.get('medicaments_type?_sort=title&_order=asc');
+            const { data } = await api.get('medicaments_type');
             setMedicamentTypes([
                 {
                     key: 'all',

@@ -10,7 +10,6 @@ import {
     ScrollView }
     from 'react-native';
 
-import { SvgFromUri } from 'react-native-svg';
 import { useNavigation, useRoute } from '@react-navigation/core'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { format,isBefore } from 'date-fns';
@@ -90,11 +89,7 @@ export function MedicamentSave() {
         >
             <View style={styles.container}>
                 <View style={styles.medicamentInfo}>
-                <SvgFromUri
-                    uri={medicament.photo}
-                    height={150}
-                    width={150}
-                />
+                <Image source={{uri: medicament.photo}} width={150} height={150} />
 
                 <Text style={styles.medicamentName}>
                     {medicament.name}
