@@ -3,7 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList
+    FlatList,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
@@ -108,9 +108,9 @@ export function MedicamentSelect() {
 
     },[])
 
-    if(loading){
-        return <Load />
-    }
+    // if(loading){
+    //     return <Load />
+    // }
 
     return (
         <View style={styles.container}>

@@ -67,12 +67,12 @@ export function MyMedicaments() {
         async function loadStorageData() {
             const medicamentsStorage = await loadMedicaments();
 
-            if (!medicamentsStorage[0]) {
-                setMyMedicaments([]);
-                setNextMedicament(`Você ainda não tem plantas. 😥`);
-                setLoading(false);
-                return;
-            }
+            // if (!medicamentsStorage[0]) {
+            //     setMyMedicaments([]);
+            //     setNextMedicament(`Você ainda não tem medicamentos agendados. 😥`);
+            //     setLoading(false);
+            //     return;
+            // }
 
             const nextTime = formatDistance(
                 new Date(medicamentsStorage[0].dateTimeNotification).getTime(),

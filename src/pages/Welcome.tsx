@@ -21,9 +21,7 @@ export function Welcome(){
         <SafeAreaView style={styles.container}>
             <View style={styles.wrapper}>
                 <Text style={styles.title}>
-                Gerencie {'\n'}
-                seus medicamentos {'\n'}
-                de maneira simples
+                REMIND ME {'\n'}
                 </Text>
 
                 <Image source={pillsImg} style={styles.image} resizeMode="contain"/>
