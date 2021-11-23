@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
+import { SvgFromUri } from 'react-native-svg';
 
 import { MedicamentProps } from '../libs/storage';
 import api from '../services/api';
@@ -109,9 +110,9 @@ export function MedicamentSelect() {
 
     },[])
 
-    // if(loading){
-    //     return <Load />
-    // }
+    if(loading){
+        return <Load />
+    }
 
     return (
         <View style={styles.container}>

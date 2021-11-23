@@ -50,7 +50,7 @@ export function MyMedicaments() {
                           }
               
                           if (myMedicaments[0].id === medicament.id && !myMedicaments[1]) {
-                            setNextMedicament(`Você ainda não tem medicamentos agendados. 😥`);
+                            setNextMedicament(`Você ainda não tem medicamentos agendados.`);
                             setMyMedicaments([]);
                             return;
                           }
@@ -69,7 +69,7 @@ export function MyMedicaments() {
 
             if (!medicamentsStorage[0]) {
                 setMyMedicaments([]);
-                setNextMedicament(`Você ainda não tem medicamentos agendados. 😥`);
+                setNextMedicament(`Você ainda não tem medicamentos agendados.`);
                 setLoading(false);
                 return;
             }

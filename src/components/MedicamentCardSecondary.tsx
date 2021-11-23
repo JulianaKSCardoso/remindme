@@ -3,10 +3,12 @@ import React from "react";
 import { StyleSheet, Text, View, Animated, Image } from "react-native";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
+import { SvgFromUri } from "react-native-svg";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+
 
 interface MedicamentProps extends RectButtonProps {
     data: {
@@ -38,7 +40,11 @@ export function MedicamentCardSecondary({ data, handleRemove, ...rest} : Medicam
                 style={styles.container}
                 {...rest}
             >
-                <Image source={{uri: data.photo}} width={50} height={50} />
+                <SvgFromUri
+                uri='https://www.svgrepo.com/show/5115/pills.svg'
+                width={50} 
+                height={50} 
+                />
                 <Text style={styles.title}>
                     {data.name}
                 </Text>

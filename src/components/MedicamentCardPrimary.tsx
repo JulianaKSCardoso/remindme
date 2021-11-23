@@ -2,6 +2,7 @@ import React from "react";
 
 import { StyleSheet, Text, Image } from "react-native";
 import { RectButton, RectButtonProps } from "react-native-gesture-handler";
+import { SvgFromUri } from "react-native-svg";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
@@ -18,7 +19,11 @@ export function MedicamentCardPrimary({ data, ...rest} : MedicamentProps) {
     return(
         <RectButton
             style={styles.container} {...rest}>
-            <Image source={{uri: data.photo}} width={70} height={70} />
+            <SvgFromUri
+            uri='https://www.svgrepo.com/show/5115/pills.svg'
+            width={70} 
+            height={70} 
+            />
             <Text style={styles.text}>{data.name}</Text>
         </RectButton>
     );

@@ -16,6 +16,7 @@ const AuthRoutes = () => {
     return(
         <AppTab.Navigator
             screenOptions={{
+                headerShown: false,
                 tabBarActiveTintColor: colors.blue,
                 tabBarInactiveTintColor: colors.heading,
                 tabBarLabelPosition: 'beside-icon',

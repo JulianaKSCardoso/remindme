@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 28,
+        fontSize: 35,
         fontWeight: 'bold',
         textAlign: 'center',
         color: colors.heading,
         marginTop: 60,
         fontFamily: fonts.heading,
-        lineHeight: 34
+        lineHeight: 50
     },
 
     subtitle: {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        height: Dimensions.get('window').width * 0.7
+        height: Dimensions.get('window').width * 0.9
     },
 
     button: {

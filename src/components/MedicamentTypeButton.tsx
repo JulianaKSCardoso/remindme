@@ -37,7 +37,7 @@ export function MedicamentTypeButton({
 const styles = StyleSheet.create( {
     container: {
         backgroundColor: colors.shape,
-        width: 76,
+        width: 85,
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',

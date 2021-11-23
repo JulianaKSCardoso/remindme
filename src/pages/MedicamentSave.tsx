@@ -13,6 +13,7 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/core'
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { format,isBefore } from 'date-fns';
+import { SvgFromUri } from 'react-native-svg';
 
 import { MedicamentProps, saveMedicament } from '../libs/storage';
 
@@ -22,6 +23,7 @@ import fonts from '../styles/fonts';
 import caps from '../assets/caps.png'
 
 import { Button } from '../components/Button';
+import { color } from 'react-native-reanimated';
 
 
 interface ParamsMedicamentSave {
@@ -69,13 +71,6 @@ export function MedicamentSave() {
             });
 
             navigation.navigate("MyMedicaments");
-            // {
-            //     title: 'Tudo certo!',
-            //     subtitle: 'Agora é só relaxar que iremos te lembrar de ingerir seus medicamentos nos horários corretos!',
-            //     buttonTitle: 'Muito Obrigado',
-            //     icon: 'smile',
-            //     nextScreen: 'MyMedicaments',
-            // });
         } catch{
             Alert.alert('Não foi possível salvar 😥')
         }
@@ -89,13 +84,16 @@ export function MedicamentSave() {
         >
             <View style={styles.container}>
                 <View style={styles.medicamentInfo}>
-                <Image source={{uri: medicament.photo}} width={150} height={150} />
+                <SvgFromUri
+                uri='https://www.svgrepo.com/show/5115/pills.svg'
+                width={150} 
+                height={150} 
+                />
 
                 <Text style={styles.medicamentName}>
                     {medicament.name}
                 </Text>
                 <Text style={styles.medicamentAbout}>
-                    Analgésico
                     {medicament.about}
                 </Text>
             </View>
@@ -108,11 +106,11 @@ export function MedicamentSave() {
                         />
 
                         <Text style={styles.tipText}>
-                            {medicament.about}
+                            {medicament.tips}
                         </Text>
                     </View>
                     <Text style={styles.alertLabel}>
-                        Escolha horário que deseja ser lembrado
+                        Escolha o horário que deseja ser lembrado
                     </Text>
 
                     {showDatePicker && (
@@ -131,7 +129,7 @@ export function MedicamentSave() {
                                 style={styles.dateTimePickerButton}
                             >
                                     <Text style={styles.dateTimePickerText}>
-                                        {`Mudar ${format(selectedDateTime, `HH:mm`)}`}
+                                        {`${format(selectedDateTime, `HH:mm`)}`}
                                     </Text>
                             </TouchableOpacity>
                         )

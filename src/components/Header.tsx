@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
     },
 
     greeting: {
-        fontSize: 32,
+        fontSize: 30,
         color: colors.heading,
         fontFamily: fonts.text,
     },
 
     userName: {
-        fontSize: 32,
+        fontSize: 30,
         fontFamily: fonts.heading,
         color: colors.heading,
         lineHeight: 35
